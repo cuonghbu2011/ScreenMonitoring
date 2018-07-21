@@ -25,7 +25,13 @@ import javax.imageio.ImageIO;
  * @author Administrator
  */
 public class SendToServer {
-    public Socket socket;
+    
+    private Socket _socket;
+    
+    public SendToServer(Socket s){
+        _socket = s;
+    }
+    
     public void chupAnhManHinh()
     {
         try
@@ -45,14 +51,14 @@ public class SendToServer {
         try
         {
             File f = new File("screen.jpg");
-            PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+            PrintWriter out = new PrintWriter(_socket.getOutputStream(),true);
             out.println("SIZE" + f.length());
             
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream("screen.jpg"));
             int i = 0;
             byte[] data = new byte[4*1000];
             
-            BufferedOutputStream bos = new BufferedOutputStream (socket.getOutputStream());
+            BufferedOutputStream bos = new BufferedOutputStream (_socket.getOutputStream());
             i = bis.read(data);
             while (i != -1)
             {

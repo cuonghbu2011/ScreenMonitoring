@@ -16,10 +16,10 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class ListenToServer {
-    public Socket socket;
+    private Socket _socket;
     public ListenToServer(Socket s)
     {
-        socket = s; 
+        _socket = s; 
     }
     public void run()
     {
@@ -27,7 +27,7 @@ public class ListenToServer {
         {
             while(true)
             {
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
                 String str = in.readLine();
                 System.out.println(str);
                 if(str.toUpperCase().startsWith("SHUTDOWN"))
