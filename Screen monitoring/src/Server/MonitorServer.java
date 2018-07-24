@@ -14,25 +14,25 @@ import java.util.Hashtable;
  * @author Administrator
  */
 public class MonitorServer {
-    public Hashtable dsClient;
-    public BigForm giaodien;
-    ServerSocket ss;
+    public Hashtable lsClient;
+    public BigForm _giaodien;
+    ServerSocket serverSocket;
     public MonitorServer()
     {
-        dsClient = new Hashtable<String, Socket>();
-        giaodien = new BigForm(dsClient);
-        giaodien.setVisible(true);
+        lsClient = new Hashtable<String, Socket>();
+        _giaodien = new BigForm(lsClient);
+        _giaodien.setVisible(true);
         try 
         {
-            ss = new ServerSocket (1999);
+            serverSocket = new ServerSocket (1999);
             while(true)
             {
-              Socket soc = ss.accept();
-              dsClient.put(soc.getInetAddress().getHostName(), soc);
-              giaodien.capnhatClient();
-              ListenToClient nghe = new ListenToClient(soc, giaodien);
+              Socket soc = serverSocket.accept();
+              lsClient.put(soc.getInetAddress().getHostName(), soc);
+              _giaodien.capnhatClient();
+              ListenToClient nghe = new ListenToClient(soc, _giaodien);
               String tenThuMuc = soc.getInetAddress().getHostName();
-              giaodien.addClient(tenThuMuc+ "\\screen222.jpg");
+              _giaodien.addClient(tenThuMuc+ "\\screen222.jpg");
               
               Thread t = new Thread((Runnable) nghe);
               t.start();

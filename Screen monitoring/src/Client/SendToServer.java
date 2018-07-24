@@ -24,7 +24,7 @@ import javax.imageio.ImageIO;
  *
  * @author Administrator
  */
-public class SendToServer {
+public class SendToServer extends Thread{
     
     private Socket _socket;
     

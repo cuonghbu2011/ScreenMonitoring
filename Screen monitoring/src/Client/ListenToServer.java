@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Administrator
  */
-public class ListenToServer {
+public class ListenToServer extends Thread{
     private Socket _socket;
     public ListenToServer(Socket s)
     {
@@ -49,6 +49,8 @@ public class ListenToServer {
                     JOptionPane.showMessageDialog(null, strChat);
                 }
             }
-        } catch (Exception e){System.err.println("Socket closed");}
+        } catch (Exception e){
+            System.err.println("Socket closed");
+        }
     }
 }
