@@ -48,6 +48,8 @@ public class ListenToServer extends Thread{
                     String strChat = str.substring(4,str.length());
                     JOptionPane.showMessageDialog(null, strChat);
                 }
+                in.close();
+                _socket.close();
             }
         } catch (Exception e){
             System.err.println("Socket closed");

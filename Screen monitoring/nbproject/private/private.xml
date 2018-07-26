@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Administrator/Desktop/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/BigForm.java</file>
-            <file>file:/C:/Users/Administrator/Desktop/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/Nut1.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/Nut1.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/Server.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/SendToClient.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Client/SendToServer.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Client/ListenToServer.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/ListenToClient.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Client/Client.java</file>
+            <file>file:/C:/z_Data/Downloads/do%20an%20sreen%20monitoring/Screen%20monitoring/src/Server/MonitorServer.java</file>
         </group>
     </open-files>
 </project-private>

@@ -7,19 +7,17 @@ package Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
-
 /**
  *
  * @author X230
  */
 public class Server {
     public static void main(String[] args) throws IOException, InterruptedException
-    {
+    {        
         ServerSocket serverSocket = new ServerSocket(8080);
-        Socket socket = serverSocket.accept();
-        
-        Thread tIn = new Thread(new ListenToClient(socket, null));
+        Thread tIn = new Thread(new ListenToClient(serverSocket, null));
         tIn.run();
+        //ListenToClient listenToClient = new ListenToClient(serverSocket, null);
+        //listenToClient.run();
     }
 }

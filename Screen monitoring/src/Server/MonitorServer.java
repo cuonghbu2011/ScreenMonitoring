@@ -24,13 +24,13 @@ public class MonitorServer {
         _giaodien.setVisible(true);
         try 
         {
-            serverSocket = new ServerSocket (1999);
+            serverSocket = new ServerSocket (8080);
             while(true)
             {
               Socket soc = serverSocket.accept();
               lsClient.put(soc.getInetAddress().getHostName(), soc);
               _giaodien.capnhatClient();
-              ListenToClient nghe = new ListenToClient(soc, _giaodien);
+              ListenToClient nghe = new ListenToClient(serverSocket, _giaodien);
               String tenThuMuc = soc.getInetAddress().getHostName();
               _giaodien.addClient(tenThuMuc+ "\\screen222.jpg");
               
