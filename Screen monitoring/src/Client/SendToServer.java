@@ -31,7 +31,7 @@ import java.util.Date;
  *
  * @author Administrator
  */
-public class SendToServer implements Runnable{
+public class SendToServer extends Thread{
     
     private Socket _socket;
     
@@ -95,43 +95,50 @@ public class SendToServer implements Runnable{
             bos.close();
             out.close();
             bis.close();
-            _socket.close();
+            //_socket.close();
             System.out.println("Het file");
         }catch (Exception e){
-            _socket.close();
+            //_socket.close();
             e.printStackTrace();
         }
     }
     
-    public void guiAnhVeServer1(String name) throws IOException
+    public void guiAnhVeServer1() throws IOException
     {
         try
         {
-            if (name == ""){
-                return;
-            }
-            File f = new File(folder + name);
-            
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
-            byte[] data = new byte[(int)f.length()];
-            bis.read(data);
-            
             ObjectOutputStream oOS = new ObjectOutputStream(_socket.getOutputStream());
             
-            RequestImageFile sf = new RequestImageFile();
-            sf.Content = data;
-            sf.Length = f.length();
-            sf.Type = ".jpg";
-            sf.Name = name;
-            
-            oOS.writeObject(sf);
+            while(true){
+                String name = chupAnhManHinh();
+                
+                if (name.isEmpty()){
+                    return;
+                }
+                File f = new File(folder + name);
 
-            oOS.flush();
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
+                byte[] data = new byte[(int)f.length()];
+                bis.read(data);
+
+                RequestImageFile sf = new RequestImageFile();
+                sf.Content = data;
+                sf.Length = f.length();
+                sf.Type = ".jpg";
+                sf.Name = name;
+
+                oOS.writeObject(sf);
+
+                oOS.flush();
+                System.out.println("Het file");
+                
+                Thread.sleep(10000);
+            }
+            
             //oOS.close();
             //bis.close();
             
             //_socket.close();
-            System.out.println("Het file");
         }catch (Exception e){
             _socket.close();
             e.printStackTrace();
@@ -140,20 +147,10 @@ public class SendToServer implements Runnable{
     
     public void run()
     {
-        while(true)
-        {
-            try
-            {
-                try {
-                    guiAnhVeServer1(chupAnhManHinh());
-                } catch (IOException ex) {
-                    Logger.getLogger(SendToServer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Thread.sleep(10000);
-            } catch (InterruptedException ex)
-            {
-                Logger.getLogger(SendToServer.class.getName()).log(Level.SEVERE,null,ex);
-            }
+        try {
+            guiAnhVeServer1();
+        } catch (IOException ex) {
+            Logger.getLogger(SendToServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

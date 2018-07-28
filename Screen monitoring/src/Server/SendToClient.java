@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author X230
  */
-public class SendToClient{
+public class SendToClient extends Thread{
     
     private Socket _socket;
     private String _inputString;
@@ -29,8 +29,8 @@ public class SendToClient{
         try {
             PrintWriter out = new PrintWriter(_socket.getOutputStream(),true);
             out.print(_inputString);
-            out.close();
-            _socket.close();
+            //out.close();
+            //_socket.close();
         } catch (IOException ex) {
             Logger.getLogger(SendToClient.class.getName()).log(Level.SEVERE, null, ex);
         }

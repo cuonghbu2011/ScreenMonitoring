@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Administrator
  */
-public class ListenToServer implements Runnable{
+public class ListenToServer extends Thread{
     private Socket _socket;
     public ListenToServer(Socket s)
     {
@@ -24,12 +24,18 @@ public class ListenToServer implements Runnable{
     public void run()
     {
         try
-        {
+        {   
             while(true)
             {
                 BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
                 String str = in.readLine();
+                
+                if (str.isEmpty()){
+                    break;
+                }
+                
                 System.out.println(str);
+                /*
                 if(str.toUpperCase().startsWith("SHUTDOWN"))
                 {
                     Runtime.getRuntime().exec("Shutdown.exe -s -t 10");
@@ -47,9 +53,9 @@ public class ListenToServer implements Runnable{
                     StringTokenizer strToken = new StringTokenizer (str);
                     String strChat = str.substring(4,str.length());
                     JOptionPane.showMessageDialog(null, strChat);
-                }
-                in.close();
-                _socket.close();
+                }*/
+                //in.close();
+                //_socket.close();
             }
         } catch (Exception e){
             System.err.println("Socket closed");

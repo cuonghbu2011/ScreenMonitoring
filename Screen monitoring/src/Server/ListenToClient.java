@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.StringTokenizer;
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author Administrator
  */
-public class ListenToClient implements Runnable{
+public class ListenToClient extends Thread{
     public Socket _socket;
     private ServerSocket _serverSocket;
     public BigForm _giaodien;
@@ -43,6 +44,9 @@ public class ListenToClient implements Runnable{
     {
         try {
             receiveFile1();
+            
+            //SendToClient sender = new SendToClient(_socket, "TEST_NE_BA");
+            //sender.start();
         } catch (IOException ex) {
             Logger.getLogger(ListenToClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,10 +95,10 @@ public class ListenToClient implements Runnable{
             in.close();
             bis.close();
             dis.close();
-            _socket.close();
+            //_socket.close();
         }catch(Exception ex){
-            _socket.close();
-            _serverSocket.close();
+            //_socket.close();
+            //_serverSocket.close();
             Logger.getLogger(ListenToClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -104,8 +108,9 @@ public class ListenToClient implements Runnable{
             _socket = _serverSocket.accept();
             System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
             
+            ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
+            
             while(true){
-                ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
                 RequestImageFile sF = (RequestImageFile)oIS.readObject();
                 
                 if (sF == null){
