@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Administrator
  */
-public class ListenToServer extends Thread{
+public class ListenToServer implements Runnable{
     private Socket _socket;
     public ListenToServer(Socket s)
     {

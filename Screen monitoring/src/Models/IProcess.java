@@ -5,12 +5,11 @@
  */
 package Models;
 
-import java.io.Serializable;
-
 /**
  *
  * @author X230
  */
-public class Request implements Serializable, IRequest {
+public interface IProcess {
     
+    abstract void Process();
 }

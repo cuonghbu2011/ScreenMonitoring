@@ -6,7 +6,10 @@
  */
 package Server;
 
-import Models.SocketFile;
+import Models.IProcess;
+import Models.IRequest;
+import Models.RequestImageFile;
+import Models.ProcessBase;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -24,7 +27,7 @@ import java.util.logging.Logger;
  *
  * @author Administrator
  */
-public class ListenToClient extends Thread{
+public class ListenToClient implements Runnable{
     public Socket _socket;
     private ServerSocket _serverSocket;
     public BigForm _giaodien;
@@ -103,7 +106,7 @@ public class ListenToClient extends Thread{
             
             while(true){
                 ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
-                SocketFile sF = (SocketFile)oIS.readObject();
+                RequestImageFile sF = (RequestImageFile)oIS.readObject();
                 
                 if (sF == null){
                     break;
@@ -125,6 +128,34 @@ public class ListenToClient extends Thread{
                 fout.write(sF.Content);
 
                 fout.flush();
+            }
+            
+            //fout.close();
+            //oIS.close();
+            //_socket.close();
+            System.out.println("Het file");
+        }catch(Exception ex){
+            //_socket.close();
+            //_serverSocket.close();
+            Logger.getLogger(ListenToClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void receiveFile2() throws IOException{
+        try{
+            _socket = _serverSocket.accept();
+            System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
+            
+            while(true){
+                ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
+                IRequest request = (IRequest)oIS.readObject();
+                
+                if (request == null){
+                    break;
+                }
+
+                IProcess process = new ProcessBase(request, _socket);
+                process.Process();
             }
             
             //fout.close();

@@ -5,12 +5,17 @@
  */
 package Models;
 
-import java.io.Serializable;
-
 /**
  *
  * @author X230
  */
-public class Request implements Serializable, IRequest {
+public class RequestImageFile extends Request {
     
+    public String Type;
+    
+    public Long Length;
+    
+    public String Name;
+    
+    public byte[] Content;
 }

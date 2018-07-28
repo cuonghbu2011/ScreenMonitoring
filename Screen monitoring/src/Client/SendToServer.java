@@ -21,7 +21,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import Models.SocketFile;
+import Models.RequestImageFile;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
@@ -31,7 +31,7 @@ import java.util.Date;
  *
  * @author Administrator
  */
-public class SendToServer extends Thread{
+public class SendToServer implements Runnable{
     
     private Socket _socket;
     
@@ -118,7 +118,7 @@ public class SendToServer extends Thread{
             
             ObjectOutputStream oOS = new ObjectOutputStream(_socket.getOutputStream());
             
-            SocketFile sf = new SocketFile();
+            RequestImageFile sf = new RequestImageFile();
             sf.Content = data;
             sf.Length = f.length();
             sf.Type = ".jpg";

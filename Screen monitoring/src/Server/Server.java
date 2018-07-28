@@ -5,6 +5,8 @@
  */
 package Server;
 
+import Models.ProcessImage;
+import Models.ProcessBase;
 import java.io.IOException;
 import java.net.ServerSocket;
 /**
