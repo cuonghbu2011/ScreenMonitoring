@@ -25,13 +25,13 @@ public class ListenToServer extends Thread{
     {
         try
         {   
+            BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
             while(true)
             {
-                BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
-                String str = in.readLine();
+            String str = in.readLine();
                 
                 if (str.isEmpty()){
-                    break;
+            //        break;
                 }
                 
                 System.out.println(str);

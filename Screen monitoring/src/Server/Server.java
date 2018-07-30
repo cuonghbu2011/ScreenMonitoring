@@ -18,9 +18,13 @@ public class Server {
     public static void main(String[] args) throws IOException, InterruptedException
     {        
         ServerSocket serverSocket = new ServerSocket(8080);
-        Thread tIn = new Thread(new ListenToClient(serverSocket, null));
-        tIn.start();
-        //ListenToClient listenToClient = new ListenToClient(serverSocket, null);
-        //listenToClient.start();
+        
+        while(true){
+            Socket socket = serverSocket.accept();
+            SendToClient sendToClient = new SendToClient(socket, "TEST_NE_PA");
+            ListenToClient listenToClient = new ListenToClient(socket, null);
+            sendToClient.start();
+            listenToClient.start();
+        }
     }
 }

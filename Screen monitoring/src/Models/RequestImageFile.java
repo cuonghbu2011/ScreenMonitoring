@@ -18,4 +18,6 @@ public class RequestImageFile extends Request {
     public String Name;
     
     public byte[] Content;
+    
+    public String Folder;
 }

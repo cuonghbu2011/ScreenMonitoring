@@ -30,14 +30,13 @@ import java.util.logging.Logger;
  */
 public class ListenToClient extends Thread{
     public Socket _socket;
-    private ServerSocket _serverSocket;
     public BigForm _giaodien;
     
-    public ListenToClient(ServerSocket inSoc, BigForm giaodien)
+    public ListenToClient(Socket socket, BigForm giaodien)
     {
-        _serverSocket = inSoc;
+        _socket = socket;
         _giaodien = giaodien;
-        System.out.println("Bat dau lang nghe tu client: " + inSoc.toString());
+        System.out.println("Bat dau lang nghe tu client: " + socket.toString());
     }
     
     public void run()
@@ -54,7 +53,6 @@ public class ListenToClient extends Thread{
     
     public void receiveFile() throws IOException{
         try{
-            _socket = _serverSocket.accept();
             System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
             InputStreamReader bis = new InputStreamReader(_socket.getInputStream());
             BufferedReader in = new BufferedReader(bis);
@@ -105,7 +103,6 @@ public class ListenToClient extends Thread{
     
     public void receiveFile1() throws IOException{
         try{
-            _socket = _serverSocket.accept();
             System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
             
             ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
@@ -117,7 +114,8 @@ public class ListenToClient extends Thread{
                     break;
                 }
 
-                String tenThumuc = _socket.getInetAddress().getHostName();
+                //String tenThumuc = _socket.getInetAddress().getHostName();
+                String tenThumuc = sF.Folder;
                 File thumuc = new File(tenThumuc);
                 if (!thumuc.exists())
                 {
@@ -148,11 +146,11 @@ public class ListenToClient extends Thread{
     
     public void receiveFile2() throws IOException{
         try{
-            _socket = _serverSocket.accept();
             System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
             
+            ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
+            
             while(true){
-                ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
                 IRequest request = (IRequest)oIS.readObject();
                 
                 if (request == null){

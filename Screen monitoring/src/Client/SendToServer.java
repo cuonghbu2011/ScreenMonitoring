@@ -34,23 +34,29 @@ import java.util.Date;
 public class SendToServer extends Thread{
     
     private Socket _socket;
+    private String _folder;
     
-    public SendToServer(Socket s){
-        _socket = s;
+    public SendToServer(Socket socket){
+        _socket = socket;
     }
     
-    private String folder = "ScreenShots\\";
+    public SendToServer(Socket socket, String folder){
+        _socket = socket;
+        _folder = folder;
+    }
+    
+    private String tempFolder = "ScreenShots\\";
     public String chupAnhManHinh()
     {
         try
         {
-            File file = new File(folder);
+            File file = new File(tempFolder);
             if (!file.exists())
             {
                 file.mkdir();
             }
             String fileName = getCurrentTimeStamp() + ".jpg";
-            String filePath = folder + fileName;
+            String filePath = tempFolder + fileName;
             Toolkit toolkit = Toolkit.getDefaultToolkit();
             Dimension screenSize = toolkit.getScreenSize();
             Rectangle screenRect = new Rectangle(screenSize);
@@ -112,10 +118,10 @@ public class SendToServer extends Thread{
             while(true){
                 String name = chupAnhManHinh();
                 
-                if (name.isEmpty()){
-                    return;
-                }
-                File f = new File(folder + name);
+                //if (name.isEmpty()){
+                //    return;
+                //}
+                File f = new File(tempFolder + name);
 
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
                 byte[] data = new byte[(int)f.length()];
@@ -126,6 +132,7 @@ public class SendToServer extends Thread{
                 sf.Length = f.length();
                 sf.Type = ".jpg";
                 sf.Name = name;
+                sf.Folder = _folder;
 
                 oOS.writeObject(sf);
 

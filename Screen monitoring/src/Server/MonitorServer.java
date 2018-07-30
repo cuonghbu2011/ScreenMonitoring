@@ -14,9 +14,10 @@ import java.util.Hashtable;
  * @author Administrator
  */
 public class MonitorServer {
+    /*
     public Hashtable lsClient;
     public BigForm _giaodien;
-    ServerSocket serverSocket;
+    Socket serverSocket;
     public MonitorServer()
     {
         lsClient = new Hashtable<String, Socket>();
@@ -30,7 +31,7 @@ public class MonitorServer {
               Socket soc = serverSocket.accept();
               lsClient.put(soc.getInetAddress().getHostName(), soc);
               _giaodien.capnhatClient();
-              ListenToClient nghe = new ListenToClient(serverSocket, _giaodien);
+              ListenToClient nghe = new ListenToClient(_socket, _giaodien);
               String tenThuMuc = soc.getInetAddress().getHostName();
               _giaodien.addClient(tenThuMuc+ "\\screen222.jpg");
               
@@ -40,4 +41,5 @@ public class MonitorServer {
         } catch(Exception e){e.printStackTrace();}
         
     }
+*/
 }

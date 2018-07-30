@@ -27,11 +27,19 @@ public class SendToClient extends Thread{
 
     public void run() {
         try {
-            PrintWriter out = new PrintWriter(_socket.getOutputStream(),true);
-            out.print(_inputString);
+            PrintWriter out = new PrintWriter(_socket.getOutputStream());
+            
+            while(true){
+                out.println(_inputString);
+                out.flush();
+                Thread.sleep(10000);
+            }
+            
             //out.close();
             //_socket.close();
         } catch (IOException ex) {
+            Logger.getLogger(SendToClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(SendToClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

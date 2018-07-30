@@ -18,8 +18,10 @@ public class Client
         //Thread tOut = new Thread(new SendToServer(s));
         //tOut.run();
         Socket s = new Socket("127.0.0.1", 8080);
-        SendToServer toServer = new SendToServer(s);
-        toServer.run();
+        ListenToServer listenServer = new ListenToServer(s);
+        listenServer.start();
+        SendToServer sendToServer = new SendToServer(s, "Client");
+        sendToServer.start();
         
         //ListenToServer lis = new ListenToServer(s);
         //lis.start();
