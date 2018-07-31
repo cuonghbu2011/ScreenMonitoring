@@ -54,7 +54,9 @@ public class MonitorServer {
     }
     
     public void AddClient(SendToClient client){
-        _lsClient.add(client);
+        if (_lsClient.contains(client) == false){
+            _lsClient.add(client);
+        }
         
         List<String> dsClient = new ArrayList<String>();
         dsClient = this.GetListClientIP();
