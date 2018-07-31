@@ -17,8 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
-import java.io.OutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -38,6 +36,8 @@ public class ListenToClient extends Thread{
         _giaodien = giaodien;
         System.out.println("Bat dau lang nghe tu client: " + socket.toString());
     }
+    
+    
     
     public void run()
     {
@@ -102,9 +102,7 @@ public class ListenToClient extends Thread{
     }
     
     public void receiveFile1() throws IOException{
-        try{
-            System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
-            
+        try{            
             ObjectInputStream oIS = new ObjectInputStream(_socket.getInputStream());
             
             while(true){
@@ -113,9 +111,14 @@ public class ListenToClient extends Thread{
                 if (sF == null){
                     break;
                 }
+                
+                System.out.println("Dang nhan file tu " + _socket.getInetAddress().getHostAddress());
 
                 //String tenThumuc = _socket.getInetAddress().getHostName();
                 String tenThumuc = sF.Folder;
+                if (tenThumuc == null || tenThumuc == ""){
+                    tenThumuc = _socket.getInetAddress().getHostName();
+                }
                 File thumuc = new File(tenThumuc);
                 if (!thumuc.exists())
                 {
@@ -131,6 +134,7 @@ public class ListenToClient extends Thread{
                 fout.write(sF.Content);
 
                 fout.flush();
+                System.out.println("Nhan xong");
             }
             
             //fout.close();

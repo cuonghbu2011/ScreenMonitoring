@@ -118,7 +118,7 @@ public class SendToServer extends Thread{
             while(true){
                 String name = chupAnhManHinh();
                 
-                //if (name.isEmpty()){
+                //if (name == null){
                 //    return;
                 //}
                 File f = new File(tempFolder + name);

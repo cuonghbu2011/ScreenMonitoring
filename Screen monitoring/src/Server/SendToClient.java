@@ -20,25 +20,46 @@ public class SendToClient extends Thread{
     private Socket _socket;
     private String _inputString;
     
-    public SendToClient(Socket socket, String s){
+    public SendToClient(Socket socket){
         _socket = socket;
+    }
+    
+    public SendToClient(Socket socket, String s) throws IOException{
+        this(socket);
         _inputString = s;
+        _out = new PrintWriter(_socket.getOutputStream());
+    }
+    
+    public String GetClientIP(){
+        return _socket.getInetAddress().getHostAddress();
+    }
+    
+    public String GetClientName(){
+        return _socket.getInetAddress().getHostName();
+    }
+    
+    public PrintWriter _out = null;
+    
+    public PrintWriter GetPrintWriter(){
+        return _out;
+    }
+    
+    public void Send(String msg){
+        _out.println(msg);
+        _out.flush();
     }
 
     public void run() {
-        try {
-            PrintWriter out = new PrintWriter(_socket.getOutputStream());
-            
+        try {            
             while(true){
-                out.println(_inputString);
-                out.flush();
+                if (_inputString != null){
+                    Send(_inputString);
+                }
                 Thread.sleep(10000);
             }
             
             //out.close();
             //_socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(SendToClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(SendToClient.class.getName()).log(Level.SEVERE, null, ex);
         }

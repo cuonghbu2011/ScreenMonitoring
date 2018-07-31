@@ -5,9 +5,8 @@
  */
 package Server;
 
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -42,4 +41,64 @@ public class MonitorServer {
         
     }
 */
+    private List<SendToClient> _lsClient;
+    public BigForm _giaodien;
+    
+    public MonitorServer()
+    {
+        _lsClient = new ArrayList<SendToClient>();
+    }
+    
+    public MonitorServer(BigForm giaodien){
+        _giaodien = giaodien;
+    }
+    
+    public void AddClient(SendToClient client){
+        _lsClient.add(client);
+        
+        List<String> dsClient = new ArrayList<String>();
+        dsClient = this.GetListClientIP();
+        for (String string : dsClient) {
+            System.out.println(string);
+        }
+        
+        //Thong bao co client moi ket noi o day
+    }
+    
+    public SendToClient GetClient(String clientIP){
+        
+        for(int i = 0; i < _lsClient.size(); i++){
+            SendToClient client = _lsClient.get(i);
+            if (client.GetClientIP().equals(clientIP)){
+                return client;
+            }
+        }
+        
+        return null;
+    }
+    
+    public void Send(String clientIP, String msg){
+        SendToClient client = GetClient(clientIP);
+        if (client != null){
+            client.Send(msg);
+        }
+    }
+    
+    public void ShowGiaoDien(){
+        //show giao dien
+    }
+    
+    public void CapNhatGiaoDien(){
+        
+    }
+    
+    public List<String> GetListClientIP(){
+        List<String> clientNames = new ArrayList<>();
+        
+        for (SendToClient sendToClient : _lsClient) {
+            clientNames.add(sendToClient.GetClientIP());
+        }
+        
+        return clientNames;
+    }
 }
